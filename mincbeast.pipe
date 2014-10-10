@@ -1,0 +1,21 @@
+TEMPLATE_DIR="/data/chamal/projects/raihaan/templates"
+LIBRARY_DIR="/data/chamal/projects/raihaan/BEaST_libraries/ADNI_library"
+
+
+normalize = {
+    exec "beast_normalize $input.mnc $output.mnc $output.xfm -modeldir $TEMPLATE_DIR"
+}
+
+mask = {
+    exec "mincbeast -clobber -verbose $LIBRARY_DIR $input.mnc $output.mnc -fill -median -conf $LIBRARY_DIR/default.2mm.conf"
+}
+
+resample = {
+    from("*normalize.mnc","xfm") {
+        exec "mincresample -invert_transformation -like $input1 -transformation $input2 $input.mnc $output.mnc"
+    }
+}
+
+Bpipe.run {
+   "%.mnc" * [normalize + mask + resample]
+}
