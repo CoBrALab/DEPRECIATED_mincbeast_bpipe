@@ -1,3 +1,5 @@
+about title: "Standard BEaST Pipeline for Brain Extraction" 
+
 TEMPLATE_DIR="/data/chamal/projects/raihaan/templates"
 LIBRARY_DIR="/data/chamal/projects/raihaan/BEaST_libraries/ADNI_library"
 
