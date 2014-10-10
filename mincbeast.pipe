@@ -5,6 +5,7 @@ LIBRARY_DIR="/data/chamal/projects/raihaan/BEaST_libraries/ADNI_library"
 
 
 normalize = {
+    branch.origname = "$input"
     exec "beast_normalize $input.mnc $output.mnc $output.xfm -modeldir $TEMPLATE_DIR"
 }
 
@@ -13,8 +14,8 @@ mask = {
 }
 
 resample = {
-    from("*normalize.mnc","xfm") {
-        exec "mincresample -invert_transformation -like $input1 -transformation $input2 $input.mnc $output.mnc"
+    from("xfm", "mnc") {
+    exec "mincresample -invert_transformation -like $origname -transformation $input.xfm $input.mnc $output.mnc"
     }
 }
 
