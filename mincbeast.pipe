@@ -19,6 +19,10 @@ resample = {
     }
 }
 
+extract = {
+    exec "minccalc -expression A[0]*A[1] $origname $input.mnc $output.mnc"
+}
+
 Bpipe.run {
-   "%.mnc" * [normalize + mask + resample]
+   "%.mnc" * [normalize + mask + resample + extract]
 }
