@@ -4,25 +4,30 @@ TEMPLATE_DIR="/data/chamal/projects/raihaan/templates"
 LIBRARY_DIR="/data/chamal/projects/raihaan/BEaST_libraries/ADNI_library"
 
 
-normalize = {
+beastnormalize = {
     branch.origname = "$input"
     exec "beast_normalize $input.mnc $output.mnc $output.xfm -modeldir $TEMPLATE_DIR"
 }
 
-mask = {
-    exec "mincbeast -clobber -verbose $LIBRARY_DIR $input.mnc $output.mnc -fill -median -conf $LIBRARY_DIR/default.2mm.conf"
+beastmask = {
+    exec "mincbeast -clobber -verbose $LIBRARY_DIR $input.mnc $output.mnc -fill -median -nlm_filter -same_res -conf $LIBRARY_DIR/default.1mm.conf"
 }
 
-resample = {
+beastresample = {
     from("xfm", "mnc") {
-    exec "mincresample -invert_transformation -like $origname -transformation $input.xfm $input.mnc $output.mnc"
+        exec "mincresample -invert_transformation -like $origname -transformation $input.xfm $input.mnc $output.mnc"
     }
 }
 
-extract = {
+beastextract = {
     exec "minccalc -expression A[0]*A[1] $origname $input.mnc $output.mnc"
 }
 
-Bpipe.run {
-   "%.mnc" * [normalize + mask + resample + extract]
+beast = segment {
+    beastnormalize + beastmask + beastresample + beastextract
 }
+
+Bpipe.run {
+   "%.mnc" * [beast]
+}
+
