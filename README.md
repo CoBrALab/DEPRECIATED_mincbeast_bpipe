@@ -1,4 +1,4 @@
-mincbeast_bpipe
+mincbeast_bpipe -- DEPRECIATED in favour of https://github.com/CobraLab/minc-bpipe-library
 ===============
 
 Implementaiton of the mincbeast processing pipeline using bpipe
