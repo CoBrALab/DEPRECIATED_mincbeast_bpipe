@@ -10,7 +10,7 @@ beastnormalize = {
 }
 
 beastmask = {
-    exec "mincbeast -clobber -verbose $LIBRARY_DIR $input.mnc $output.mnc -fill -median -nlm_filter -same_res -conf $LIBRARY_DIR/default.1mm.conf"
+    exec "mincbeast -clobber -verbose $LIBRARY_DIR $input.mnc $output.mnc -fill -median -nlm_filter -same_res -flip -conf $LIBRARY_DIR/default.1mm.conf"
 }
 
 beastresample = {
