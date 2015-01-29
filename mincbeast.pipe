@@ -27,7 +27,8 @@ beast = segment {
     beastnormalize + beastmask + beastresample + beastextract
 }
 
-Bpipe.run {
-   "%.mnc" * [beast]
-}
+//Don't use this anymore, depreciated for minc-bpipe-library
+//Bpipe.run {
+//   "%.mnc" * [beast]
+//}
 
